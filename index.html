@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppGather | Windows Toplu Uygulama İndiricisi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">📥 <span>App</span>Gather</div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a onclick="showPage('home')" id="link-home" class="active">Ana Sayfa</a></li>
+                    <li><a onclick="showPage('about')" id="link-about">Hakkımızda</a></li>
+                    <li><a onclick="showPage('contact')" id="link-contact">İletişim</a></li>
+                    <li><a onclick="checkAuthAndGoToPrograms()" id="link-programs">Programlar</a></li>
+                </ul>
+                <div class="user-area" id="userArea">
+                    <button class="btn-sm outline" onclick="openModal('login')" id="loginBtn">Giriş</button>
+                    <button class="btn-sm" onclick="openModal('register')" id="registerBtn">Kayıt</button>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️</button>
+                <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">EN</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- ========== ANA SAYFA ========== -->
+        <section id="home" class="page-section active-section">
+            <div class="hero">
+                <h1>Windows Uygulamalarını <span>Toplu İndir</span></h1>
+                <p>Günlük ihtiyacınız olan tüm uygulamaları bir tıkla indirin. 60+ popüler uygulama, üyelik sistemi ve yorumlar.</p>
+                <button class="btn" onclick="checkAuthAndGoToPrograms()">📥 İndiriciyi Aç</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-box"><div class="stat-number">60+</div><div class="stat-label">Popüler Uygulama</div></div>
+                <div class="stat-box"><div class="stat-number">%100</div><div class="stat-label">Resmi Kaynaklar</div></div>
+                <div class="stat-box"><div class="stat-number">5KB</div><div class="stat-label">Program Boyutu</div></div>
+                <div class="stat-box"><div class="stat-number">Ücretsiz</div><div class="stat-label">Açık Kaynak</div></div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>✨ Resmi Kaynaklar</h3>
+                    <p>Tüm indirmeler doğrudan resmi kaynaklardan yapılır. Microsoft, Google, Mozilla gibi güvenilir merkezlerden.</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ Hızlı Kurulum</h3>
+                    <p>Tek bir komut ile tüm uygulamaları otomatik olarak kurun. Winget ile çalışır.</p>
+                </div>
+                <div class="card">
+                    <h3>🔐 Güvenli & Açık Kaynak</h3>
+                    <p>Kaynak kodu tamamen açık. Başka hiçbir şey kurmaz, sadece seçtiğiniz uygulamalar indirilir.</p>
+                </div>
+            </div>
+
+            <!-- SSS ANA SAYFA ALTINDA -->
+            <div style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+                <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 2rem;">❓ Sık Sorulan Sorular</h2>
+                <div id="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>AppGather nedir?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>AppGather, Windows kullanıcıları için popüler uygulamaları toplu olarak indiren hafif ve güvenli bir araçtır.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Uygulamalar nereden indirilir?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Tüm uygulamalar resmi kaynaklarından indirilir. Hiçbir üçüncü taraf kaynağı kullanılmaz.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>AppGather virüs içerir mi?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Hayır. AppGather açık kaynak kodludur ve VirusTotal'da taranmıştır.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Programı kaldırırsam ne olur?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>AppGather'ı kaldırırsanız, sadece indirici silinir. İndirdiğiniz uygulamalar kalır.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Linux ve macOS desteği var mı?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Şu anda sadece Windows desteklenmektedir. Linux ve macOS versiyonları yakında gelecek.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== HAKKIMIZDA ========== -->
+        <section id="about" class="page-section">
+            <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 2rem;">Hakkımızda</h2>
+            <div class="grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <h3>🚀 Misyonumuz</h3>
+                    <p>Windows kullanıcılarının en çok ihtiyaç duyduğu uygulamaları toplu ve güvenli bir şekilde indirmelerini sağlamak. Zaman kazandırmak ve kurulum sürecini basitleştirmek.</p>
+                </div>
+                <div class="card">
+                    <h3>💡 Vizyonumuz</h3>
+                    <p>Açık kaynak felsefesiyle, topluluğun katkılarıyla büyüyen, herkesin kolayca kullanabileceği bir platform olmak.</p>
+                </div>
+                <div class="card">
+                    <h3>👨‍💻 Ekibimiz</h3>
+                    <p>AppGather, tutkulu yazılım geliştiricileri ve gönüllülerden oluşan bir ekip tarafından geliştirilmektedir. Her türlü geri bildirime açığız.</p>
+                </div>
+                <div class="card">
+                    <h3>📅 Tarihçe</h3>
+                    <p>Proje 2024 yılında başlatıldı. Kullanıcı geri bildirimleriyle sürekli gelişiyor ve yeni uygulamalar ekleniyor.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== İLETİŞİM ========== -->
+        <section id="contact" class="page-section">
+            <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 2rem;">İletişim</h2>
+            <div class="grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <h3>📧 E-posta</h3>
+                    <p><a href="mailto:support@aydinteknikdestek.com" style="color:var(--primary);">support@aydinteknikdestek.com</a></p>
+                    <p>Her türlü soru, öneri ve geri bildirim için bize yazabilirsiniz.</p>
+                </div>
+                <div class="card">
+                    <h3>🐙 GitHub</h3>
+                    <p>Projemize katkıda bulunmak, hata bildirmek veya kaynak kodunu incelemek için:</p>
+                    <p><a href="https://github.com/aydinteknikdestek" target="_blank" style="color:var(--primary);">github.com/aydinteknikdestek</a></p>
+                </div>
+                <div class="card">
+                    <h3>💬 Topluluk</h3>
+                    <p>Yakında Discord sunucumuz ve forum sayfamız aktif olacak. Gelişmeleri takip edin.</p>
+                </div>
+                <div class="card">
+                    <h3>📱 Sosyal Medya</h3>
+                    <p>Twitter, LinkedIn ve YouTube üzerinden de bize ulaşabilirsiniz. (Hesap bilgileri yakında.)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PROGRAMLAR (SADECE ÜYELER) ========== -->
+        <section id="programs" class="page-section">
+            <h2 style="margin-bottom: 2rem; font-size: 2.5rem; font-weight: 900;">Windows İçin Uygulamalar (60+)</h2>
+
+            <div class="grid" id="appsGrid">
+                <!-- Uygulama listeleri JS ile doldurulacak -->
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background-color: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem;">Toplam İndirme Boyutu</h3>
+                        <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary);" id="total-size">0 MB</div>
+                    </div>
+                    <div id="selected-count" style="font-size: 1.2rem; color: var(--text-muted);">0 uygulama seçildi</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;">
+                    <button class="btn btn-secondary" onclick="selectAll()">Tümünü Seç</button>
+                    <button class="btn" onclick="downloadSelected()">📥 İndirmeyi Başlat</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ========== MODAL (GİRİŞ / KAYIT) ========== -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <button class="close-modal" onclick="closeModal()">✕</button>
+            <h2 id="modalTitle">Giriş Yap</h2>
+            <div id="modalBody">
+                <!-- Giriş formu -->
+                <form id="loginForm" onsubmit="loginUser(event)">
+                    <div class="form-group">
+                        <label>Kullanıcı Adı</label>
+                        <input type="text" id="loginUsername" required placeholder="Kullanıcı adınız">
+                    </div>
+                    <div class="form-group">
+                        <label>Şifre</label>
+                        <input type="password" id="loginPassword" required placeholder="Şifreniz">
+                    </div>
+                    <div class="error-msg" id="loginError">Hatalı giriş!</div>
+                    <button type="submit" class="btn btn-block">Giriş Yap</button>
+                    <div class="switch-link">Hesabınız yok mu? <a onclick="switchModal('register')">Kayıt Ol</a></div>
+                </form>
+                <!-- Kayıt formu (başlangıçta gizli) -->
+                <form id="registerForm" onsubmit="registerUser(event)" style="display:none;">
+                    <div class="form-group">
+                        <label>Kullanıcı Adı</label>
+                        <input type="text" id="regUsername" required placeholder="Kullanıcı adı">
+                    </div>
+                    <div class="form-group">
+                        <label>E-posta</label>
+                        <input type="email" id="regEmail" required placeholder="ornek@mail.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Şifre</label>
+                        <input type="password" id="regPassword" required placeholder="En az 6 karakter">
+                    </div>
+                    <div class="error-msg" id="registerError">Bu kullanıcı adı zaten alınmış!</div>
+                    <button type="submit" class="btn btn-block btn-success">Kayıt Ol</button>
+                    <div class="switch-link">Zaten hesabınız var mı? <a onclick="switchModal('login')">Giriş Yap</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== YORUM MODAL ========== -->
+    <div class="modal-overlay" id="commentModal">
+        <div class="modal" style="max-width: 550px;">
+            <button class="close-modal" onclick="closeCommentModal()">✕</button>
+            <h2 id="commentModalTitle">Yorumlar</h2>
+            <div id="commentModalBody">
+                <div id="commentList"></div>
+                <div class="comment-input-area">
+                    <input type="text" id="commentInput" placeholder="Yorumunuzu yazın..." maxlength="500">
+                    <button onclick="addComment()">Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <h3>AppGather</h3>
+            <p>Windows İçin Toplu Uygulama İndiricisi</p>
+            <div class="footer-links">
+                <a href="https://github.com/aydinteknikdestek" target="_blank">GitHub</a>
+                <a href="mailto:support@aydinteknikdestek.com">İletişim</a>
+                <a href="#" onclick="showPage('home')">Yardım</a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.9rem;">© 2024 Aydın Teknik Destek - Açık Kaynak Projesi</p>
+        </div>
+    </footer>
+
+    <script src="app-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
